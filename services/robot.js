@@ -75,17 +75,13 @@ module.exports = {
     }
 
     var newX = Number(positions[0])
-    if (Number.isNaN(newX) || !Number.isInteger(newX)) {
-      return loggerService.error('The first argument (X,y,f) must be an integer. Have another go!')
-    } else if (newX < 0 || newX > 5) {
-      return loggerService.error('The first argument (X,y,f) must be between 0 and 5. Have another go!')
+    if (Number.isNaN(newX) || !Number.isInteger(newX) || newX < 0 || newX > 5) {
+      return loggerService.error('The first argument (X,y,f) if not a valid argument. Must be an integer between 0 and 5. Have another go!')
     }
 
     var newY = Number(positions[1])
-    if (Number.isNaN(newY) || !Number.isInteger(newY)) {
-      return loggerService.error('The second argument (x,Y,f) must be an integer. Have another go!')
-    } else if (newY < 0 || newY > 5) {
-      return loggerService.error('The second argument (x,Y,f) must be between 0 and 5. Have another go!')
+    if (Number.isNaN(newY) || !Number.isInteger(newY) || newY < 0 || newY > 5) {
+      return loggerService.error('The second argument (x,Y,f) if not a valid argument. Must be an integer between 0 and 5. Have another go!')
     }
 
     const direction = positions[2].trim()

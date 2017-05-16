@@ -1,6 +1,5 @@
 'use strict'
 
-var util = require('util')
 var robotService = require('./services/robot')
 var loggerService = require('./services/logger')
 
