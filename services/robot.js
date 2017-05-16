@@ -21,7 +21,6 @@ var robotService = {
     if (!robotService._robot.placed) { return loggerService.notPlaced() }
 
     moveService.move(robotService._robot)
-    loggerService.newInput()
   },
 
   /**
@@ -34,7 +33,6 @@ var robotService = {
 
     var current = DIRECTIONS.indexOf(robotService._robot.direction)
     robotService._robot.direction = current ? DIRECTIONS[(current - 1) % DIRECTIONS.length] : DIRECTIONS[DIRECTIONS.length - 1]
-    loggerService.newInput()
   },
 
   /**
@@ -46,7 +44,6 @@ var robotService = {
     if (!robotService._robot.placed) { return loggerService.notPlaced() }
 
     robotService._robot.direction = DIRECTIONS[(DIRECTIONS.indexOf(robotService._robot.direction) + 1) % DIRECTIONS.length]
-    loggerService.newInput()
   },
 
   /**
@@ -58,7 +55,6 @@ var robotService = {
     if (!robotService._robot.placed) { return loggerService.notPlaced() }
 
     console.log('\x1b[32m%s\x1b[0m', robotService._robot.x + ',' + robotService._robot.y + ',' + robotService._robot.direction)
-    loggerService.newInput()
   },
 
   /**
@@ -94,7 +90,6 @@ var robotService = {
     robotService._robot.y = newY
     robotService._robot.direction = direction
     robotService._robot.placed = true
-    loggerService.newInput()
   },
 
   /**

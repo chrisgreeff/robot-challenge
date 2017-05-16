@@ -26,4 +26,6 @@ process.stdin.on('data', function (text) {
   } else {
     loggerService.unknownCommand()
   }
+
+  loggerService.newInput()
 })

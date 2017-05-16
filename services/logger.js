@@ -14,6 +14,7 @@ var loggerService = {
     console.log('Here are the commands you have at your disposal!')
     console.log()
     loggerService.commands()
+    loggerService.newInput()
   },
 
   /**
@@ -47,7 +48,6 @@ var loggerService = {
     console.log('\x1b[36m%s\x1b[0m', 'REPORT')
     console.log('\x1b[36m%s\x1b[0m', 'QUIT')
     console.log()
-    loggerService.newInput()
   },
 
   /**
@@ -71,7 +71,6 @@ var loggerService = {
 
     console.log('\x1b[31m%s\x1b[0m: ', 'Whoops, you haven\'t placed your robot yet! You should try this command first')
     console.log('\x1b[36m%s\x1b[0m', 'PLACE X,Y,F')
-    loggerService.newInput()
   },
 
   /**
@@ -85,7 +84,6 @@ var loggerService = {
     if (global.TESTING) { return }
 
     console.log('\x1b[31m%s\x1b[0m: ', message)
-    loggerService.newInput()
   },
 
   /**
