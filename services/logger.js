@@ -11,7 +11,7 @@ var loggerService = {
 
     loggerService.welcome()
     console.log()
-    console.log('Please enter one of the following commands:')
+    console.log('Here are the commands you have at your disposal!')
     console.log()
     loggerService.commands()
   },
@@ -58,8 +58,7 @@ var loggerService = {
   unknownCommand: function () {
     if (global.TESTING) { return }
 
-    loggerService.error('I\'m sorry, That\'s not something I can do yet :(. How about you try one of these?')
-    loggerService.commands()
+    loggerService.error('I\'m sorry, That\'s not something I can do yet :(')
   },
 
   /**
