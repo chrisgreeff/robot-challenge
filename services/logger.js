@@ -1,10 +1,12 @@
-var logger = {
+'use strict'
+
+var loggerService = {
   intro: function () {
-    logger.welcome()
+    loggerService.welcome()
     console.log()
     console.log('Please enter one of the following commands:')
     console.log()
-    logger.commands()
+    loggerService.commands()
   },
   welcome: function () {
     console.log('__          __  _                          _ ')
@@ -22,23 +24,24 @@ var logger = {
     console.log('\x1b[36m%s\x1b[0m', 'REPORT')
     console.log('\x1b[36m%s\x1b[0m', 'QUIT')
     console.log()
-    process.stdout.write('$ ')
+    loggerService.newInput()
   },
   unknownCommand: function () {
-    logger.error('I\'m sorry, That\'s not something I can do yet :(. How about you try one of these?')
-    logger.commands()
+    loggerService.error('I\'m sorry, That\'s not something I can do yet :(. How about you try one of these?')
+    loggerService.commands()
   },
   notPlaced: function () {
     console.log('\x1b[31m%s\x1b[0m: ', 'Whoops, you haven\'t placed your robot yet! You should try this command first')
     console.log('\x1b[36m%s\x1b[0m', 'PLACE X,Y,F')
-    console.log()
-    process.stdout.write('$ ')
+    loggerService.newInput()
   },
   error: function (message) {
     console.log('\x1b[31m%s\x1b[0m: ', message)
-    console.log()
+    loggerService.newInput()
+  },
+  newInput: function () {
     process.stdout.write('$ ')
   }
 }
 
-module.exports = logger
+module.exports = loggerService

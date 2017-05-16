@@ -1,8 +1,10 @@
-var util = require('util')
-var robot = require('./robot')
-var logger = require('./logger')
+'use strict'
 
-logger.intro()
+var util = require('util')
+var robotService = require('./services/robot')
+var loggerService = require('./services/logger')
+
+loggerService.intro()
 
 process.stdin.resume()
 process.stdin.setEncoding('utf8')
@@ -13,16 +15,16 @@ process.stdin.on('data', function (text) {
     console.log('It\'s been fun! See you next time!')
     process.exit()
   } else if (command === 'MOVE') {
-    robot.move()
+    robotService.move()
   } else if (command === 'LEFT') {
-    robot.left()
+    robotService.left()
   } else if (command === 'RIGHT') {
-    robot.right()
+    robotService.right()
   } else if (command === 'REPORT') {
-    robot.report()
+    robotService.report()
   } else if (command.indexOf('PLACE') === 0) {
-    robot.place(command)
+    robotService.place(command)
   } else {
-    logger.unknownCommand()
+    loggerService.unknownCommand()
   }
 })

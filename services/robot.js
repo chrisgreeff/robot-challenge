@@ -1,3 +1,5 @@
+'use strict'
+
 var loggerService = require('./logger')
 var moveService = require('./move')
 var DIRECTIONS = ['NORTH', 'EAST', 'SOUTH', 'WEST']
@@ -9,27 +11,62 @@ var robot = {
 }
 
 module.exports = {
+  /**
+   * Moves the robot 1 space in the direction it's facing without falling off the table.
+   *
+   * @method move
+   */
   move: function () {
     if (!robot.placed) { return loggerService.notPlaced() }
 
     moveService.move(robot)
+    loggerService.newInput()
   },
+
+  /**
+   * Rotates the robot 90 degrees anti-clockwise.
+   *
+   * @method left
+   */
   left: function () {
     if (!robot.placed) { return loggerService.notPlaced() }
 
     var current = DIRECTIONS.indexOf(robot.direction)
-    robot.direction = current ? DIRECTIONS[(current - 1) % 4] : DIRECTIONS[3]
+    robot.direction = current ? DIRECTIONS[(current - 1) % DIRECTIONS.length] : DIRECTIONS[DIRECTIONS.length - 1]
+    loggerService.newInput()
   },
+
+  /**
+   * Rotates the robot 90 degrees clockwise.
+   *
+   * @method right
+   */
   right: function () {
     if (!robot.placed) { return loggerService.notPlaced() }
 
-    robot.direction = DIRECTIONS[(DIRECTIONS.indexOf(robot.direction) + 1) % 4]
+    robot.direction = DIRECTIONS[(DIRECTIONS.indexOf(robot.direction) + 1) % DIRECTIONS.length]
+    loggerService.newInput()
   },
+
+  /**
+   * Reports the current position and direction of the robot.
+   *
+   * @method report
+   */
   report: function () {
     if (!robot.placed) { return loggerService.notPlaced() }
 
-    console.log(robot.x + ',' + robot.y + ',' + robot.direction)
+    console.log('\x1b[32m%s\x1b[0m', robot.x + ',' + robot.y + ',' + robot.direction)
+    loggerService.newInput()
   },
+
+  /**
+   * Places the robot on the table with the given position and direction entered by the user. Provided it's on the table..
+   *
+   * @method place
+   * @param  {String} command
+   *         The user entered command to parse the position and direction from.
+   */
   place: function (command) {
     var positions = command.substring(5).split(',')
 
@@ -56,14 +93,10 @@ module.exports = {
       return loggerService.error('The third argument (x,y,F) must be either "NORTH", "EAST", "SOUTH", or "WEST". Have another go!')
     }
 
-    // If we have got this far, we can accept all arguments.
     robot.x = newX
     robot.y = newY
     robot.direction = direction
     robot.placed = true
-
-    console.log('Robot placed!')
-    console.log()
-    process.stdout.write('$ ')
+    loggerService.newInput()
   }
 }
