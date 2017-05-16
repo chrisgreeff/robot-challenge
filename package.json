@@ -1,0 +1,15 @@
+{
+  "name": "robot-challenge",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "./node_modules/mocha/bin/mocha \"./test/**/*.test.js\""
+  },
+  "repository": "git@github.com:chrisgreeff/robot-challenge.git",
+  "author": "Chris Greeff <chris.r.greeff@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "chai": "^3.5.0",
+    "mocha": "^3.4.1"
+  }
+}

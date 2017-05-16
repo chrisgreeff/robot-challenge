@@ -9,6 +9,8 @@ var moveService = {
    *         The robot to move.
    */
   move: function (robot) {
+    if (!robot.direction) { return }
+
     moveService[robot.direction](robot)
   },
 
@@ -20,6 +22,8 @@ var moveService = {
    *         The robot to move.
    */
   NORTH: function (robot) {
+    if (!robot.direction) { return }
+
     var newY = robot.y + 1
 
     if (newY <= 5) {
@@ -35,6 +39,8 @@ var moveService = {
    *         The robot to move.
    */
   EAST: function (robot) {
+    if (!robot.direction) { return }
+
     var newX = robot.x + 1
 
     if (newX <= 5) {
@@ -50,6 +56,8 @@ var moveService = {
    *         The robot to move.
    */
   SOUTH: function (robot) {
+    if (!robot.direction) { return }
+
     var newY = robot.y - 1
 
     if (newY >= 0) {
@@ -65,6 +73,8 @@ var moveService = {
    *         The robot to move.
    */
   WEST: function (robot) {
+    if (!robot.direction) { return }
+
     var newX = robot.x - 1
 
     if (newX >= 0) {

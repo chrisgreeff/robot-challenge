@@ -1,0 +1,5 @@
+# OS Files
+.DS_Store
+
+# Client side
+node_modules

@@ -3,23 +3,24 @@
 var loggerService = require('./logger')
 var moveService = require('./move')
 var DIRECTIONS = ['NORTH', 'EAST', 'SOUTH', 'WEST']
-var robot = {
-  placed: false,
-  x: null,
-  y: null,
-  direction: null
-}
 
-module.exports = {
+var robotService = {
+  _robot: {
+    placed: false,
+    x: null,
+    y: null,
+    direction: null
+  },
+
   /**
    * Moves the robot 1 space in the direction it's facing without falling off the table.
    *
    * @method move
    */
   move: function () {
-    if (!robot.placed) { return loggerService.notPlaced() }
+    if (!robotService._robot.placed) { return loggerService.notPlaced() }
 
-    moveService.move(robot)
+    moveService.move(robotService._robot)
     loggerService.newInput()
   },
 
@@ -29,10 +30,10 @@ module.exports = {
    * @method left
    */
   left: function () {
-    if (!robot.placed) { return loggerService.notPlaced() }
+    if (!robotService._robot.placed) { return loggerService.notPlaced() }
 
-    var current = DIRECTIONS.indexOf(robot.direction)
-    robot.direction = current ? DIRECTIONS[(current - 1) % DIRECTIONS.length] : DIRECTIONS[DIRECTIONS.length - 1]
+    var current = DIRECTIONS.indexOf(robotService._robot.direction)
+    robotService._robot.direction = current ? DIRECTIONS[(current - 1) % DIRECTIONS.length] : DIRECTIONS[DIRECTIONS.length - 1]
     loggerService.newInput()
   },
 
@@ -42,9 +43,9 @@ module.exports = {
    * @method right
    */
   right: function () {
-    if (!robot.placed) { return loggerService.notPlaced() }
+    if (!robotService._robot.placed) { return loggerService.notPlaced() }
 
-    robot.direction = DIRECTIONS[(DIRECTIONS.indexOf(robot.direction) + 1) % DIRECTIONS.length]
+    robotService._robot.direction = DIRECTIONS[(DIRECTIONS.indexOf(robotService._robot.direction) + 1) % DIRECTIONS.length]
     loggerService.newInput()
   },
 
@@ -54,9 +55,9 @@ module.exports = {
    * @method report
    */
   report: function () {
-    if (!robot.placed) { return loggerService.notPlaced() }
+    if (!robotService._robot.placed) { return loggerService.notPlaced() }
 
-    console.log('\x1b[32m%s\x1b[0m', robot.x + ',' + robot.y + ',' + robot.direction)
+    console.log('\x1b[32m%s\x1b[0m', robotService._robot.x + ',' + robotService._robot.y + ',' + robotService._robot.direction)
     loggerService.newInput()
   },
 
@@ -89,10 +90,24 @@ module.exports = {
       return loggerService.error('The third argument (x,y,F) must be either "NORTH", "EAST", "SOUTH", or "WEST". Have another go!')
     }
 
-    robot.x = newX
-    robot.y = newY
-    robot.direction = direction
-    robot.placed = true
+    robotService._robot.x = newX
+    robotService._robot.y = newY
+    robotService._robot.direction = direction
+    robotService._robot.placed = true
     loggerService.newInput()
+  },
+
+  /**
+   * Resets the state of the robot. This is primarily for testing purposes.
+   *
+   * @method reset
+   */
+  reset: function () {
+    robotService._robot.placed = false
+    robotService._robot.x = null
+    robotService._robot.y = null
+    robotService._robot.direction = null
   }
 }
+
+module.exports = robotService
